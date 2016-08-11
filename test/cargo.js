@@ -125,6 +125,9 @@ test.describe('Cargo', function() {
 
     driver.findElement({css: '#cboxClose'}).click();
     driver.sleep(500);
+  });
+
+  test.it('Thumbnail cargo', function() {
 
     driver.findElement({css: '.js-doc-thumbnail'}).click();
     driver.sleep(500);
