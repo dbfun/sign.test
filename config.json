@@ -1,0 +1,16 @@
+{
+  "login": {
+    "coord": {
+      "user": "drozdovayua@iek.ru",
+      "password": "test101test",
+      "uri": "http://192.168.58.235/sign/",
+      "file": "var/coord.json"
+    },
+    "partner": {
+      "user": "o.lipchanskaya@electroff.ru",
+      "password": "test101test",
+      "uri": "http://192.168.58.235/partner/signcargo/",
+      "file": "var/partner.json"
+    }
+  }
+}
