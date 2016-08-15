@@ -7,7 +7,8 @@ var webdriver = require('selenium-webdriver'),
     until = webdriver.until,
     test = require('selenium-webdriver/testing'),
     fs = require('fs'),
-    config = require('../config.json');
+    config = require('../config.json'),
+    assert = require('assert');
 
 test.describe('Terms', function() {
   var driver, cookies;
@@ -65,9 +66,22 @@ test.describe('Terms', function() {
     driver.findElement({css: '[name="ipFirstName"]'}).sendKeys('Котов');
     driver.findElement({css: '[name="ipSecondName"]'}).sendKeys('Иван');
     driver.findElement({css: '[name="ipLastName"]'}).sendKeys('Михайлович');
-    driver.findElement({css: '[name="blankSeria"]'}).sendKeys( Math.floor(Math.random() * 10000) ); // 100
+
     driver.findElement({css: '[name="blankNumber"]'}).sendKeys( Math.floor(Math.random() * 10000) ); // 500
     driver.findElement({css: '[name="ogrnIp"]'}).sendKeys(315392600033691 + Math.floor(Math.random() * 1000000) );
+    driver.findElement({css: '.js-signform [type="submit"]'}).click();
+
+    driver.sleep(1000);
+
+    driver.executeScript("var retJSVar = {}; \
+        retJSVar.text = $('[name=\"blankSeria\"]').siblings('.js-signform-alert').text(); \
+        return retJSVar;").then(
+      function(ret) {
+        // console.log(ret);
+        assert(ret.text == 'Введите бланк серия');
+      });
+
+    driver.findElement({css: '[name="blankSeria"]'}).sendKeys( Math.floor(Math.random() * 10000) ); // 100
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 
     driver.wait(until.urlIs('http://192.168.58.235/sign/terms/'), 1000);
@@ -78,10 +92,32 @@ test.describe('Terms', function() {
     driver.findElement({css: '.js-doc-edit'}).click();
     driver.wait(until.urlContains('?view=edit'), 1000);
     driver.wait(until.elementLocated({css: '.js-signform [type="submit"]'}), 500);
+
+    driver.findElement({css: '[name="discount_1"]'}).clear();
+    driver.findElement({css: '[name="discount_1"]'}).sendKeys(Math.floor(Math.random() * 10) + 2);
+
     driver.sleep(500);
     driver.findElement({css: '.js-signform [type="submit"]'}).click(); // Not working WTF?
     // driver.findElement(By.id('sign-submit')).click();
     driver.wait(until.urlIs('http://192.168.58.235/sign/terms/'), 5000, 'submit');
+  });
+
+  test.it('Confirm terms', function() {
+    driver.get('http://192.168.58.235/sign/terms/');
+    driver.findElement({css: '.js-doc-confirm'}).click();
+
+    driver.switchTo().alert().then(
+      function() {
+        // console.log("alert detected");
+        driver.switchTo().alert().accept();
+      },
+      function() {
+        // console.log("no alert detected");
+        assert(false === 'Должно быть предупреждение alert');
+      }
+    );
+
+
   });
 
 

@@ -65,7 +65,7 @@ test.describe('Cargo', function() {
     driver.executeScript("$('[name=\"ipOrUrlico\"]').val('2').trigger('change')");
 
     driver.findElement({css: '[name="headOgrnIp"]'}).sendKeys(315392600033691 + Math.floor(Math.random() * 1000000) );
-    driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
+
     driver.findElement({css: '[name="headPlace"]'}).sendKeys('Россия, 236029, г. Калининград, ул. Полковника Ефремова, д.2, кв. 73');
     driver.findElement({css: '[name="headAddress"]'}).sendKeys('Россия, 236029, г. Калининград, Московский проспект, 195');
     driver.findElement({css: '[name="headPhoneFax"]'}).sendKeys('8 (4012) 777-999');
@@ -88,13 +88,32 @@ test.describe('Cargo', function() {
 
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 
+    driver.sleep(1000);
+
+    driver.executeScript("var retJSVar = {}; \
+        retJSVar.text = $('[name=\"headInn\"]').siblings('.js-signform-alert').text(); \
+        return retJSVar;").then(
+      function(ret) {
+        // console.log(ret);
+        assert(ret.text == 'Неправильно указано ИНН. Правильный формат: 10 или 12 цифр. Пример: 1234567890');
+      });
+
+    driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
+    driver.findElement({css: '.js-signform [type="submit"]'}).click();
+
     driver.wait(until.urlIs('http://192.168.58.235/partner/signcargo/'), 1000);
   });
+
+
 
   test.it('Edit cargo', function() {
     driver.get('http://192.168.58.235/partner/signcargo/');
     driver.findElement({css: '.js-doc-edit'}).click();
     driver.wait(until.urlContains('?view=edit'), 1000);
+
+    driver.findElement({css: '[name="ogrn"]'}).clear();
+    driver.findElement({css: '[name="ogrn"]'}).sendKeys(1117746254922 + Math.floor(Math.random() * 1000000));
+
     driver.wait(until.elementLocated({css: '.js-signform [type="submit"]'}), 500);
     driver.sleep(500);
     driver.findElement({css: '.js-signform [type="submit"]'}).click(); // Not working WTF?
@@ -128,7 +147,6 @@ test.describe('Cargo', function() {
   });
 
   test.it('Thumbnail cargo', function() {
-
     driver.findElement({css: '.js-doc-thumbnail'}).click();
     driver.sleep(500);
 
