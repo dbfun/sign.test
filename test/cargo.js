@@ -41,6 +41,8 @@ test.describe('Cargo', function() {
     driver.getTitle().then(function(title) {
       if(title == 'Авторизация') {
           console.log('Авторизация...');
+          driver.manage().deleteAllCookies();
+          driver.get(config.login.partner.uri);
 
           driver.findElement({ css: '.authTab [name="USER_LOGIN"]' }).sendKeys(config.login.partner.user);
           driver.findElement({ css: '.authTab [name="USER_PASSWORD"]'}).sendKeys(config.login.partner.password);
@@ -111,11 +113,11 @@ test.describe('Cargo', function() {
     driver.findElement({css: '.js-doc-edit'}).click();
     driver.wait(until.urlContains('?view=edit'), 1000);
 
+    driver.wait(until.elementLocated({css: '[name="ogrn"]'}), 500);
+
     driver.findElement({css: '[name="ogrn"]'}).clear();
     driver.findElement({css: '[name="ogrn"]'}).sendKeys(1117746254922 + Math.floor(Math.random() * 1000000));
 
-    driver.wait(until.elementLocated({css: '.js-signform [type="submit"]'}), 500);
-    driver.sleep(500);
     driver.findElement({css: '.js-signform [type="submit"]'}).click(); // Not working WTF?
     driver.wait(until.urlIs('http://192.168.58.235/partner/signcargo/'), 5000, 'submit');
   });

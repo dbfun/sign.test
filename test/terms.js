@@ -30,6 +30,8 @@ test.describe('Terms', function() {
     driver.getTitle().then(function(title) {
       if(title == 'Авторизация') {
           console.log('Авторизация...');
+          driver.manage().deleteAllCookies();
+          driver.get(config.login.coord.uri);
 
           driver.findElement({ css: '.authTab [name="USER_LOGIN"]' }).sendKeys(config.login.coord.user);
           driver.findElement({ css: '.authTab [name="USER_PASSWORD"]'}).sendKeys(config.login.coord.password);
@@ -110,6 +112,7 @@ test.describe('Terms', function() {
       function() {
         // console.log("alert detected");
         driver.switchTo().alert().accept();
+        driver.sleep(500);
       },
       function() {
         // console.log("no alert detected");

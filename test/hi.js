@@ -41,6 +41,8 @@ test.describe('Hi', function() {
     driver.getTitle().then(function(title) {
       if(title == 'Авторизация') {
           console.log('Авторизация...');
+          driver.manage().deleteAllCookies();
+          driver.get(config.login.partner.uri);
 
           driver.findElement({ css: '.authTab [name="USER_LOGIN"]' }).sendKeys(config.login.partner.user);
           driver.findElement({ css: '.authTab [name="USER_PASSWORD"]'}).sendKeys(config.login.partner.password);
