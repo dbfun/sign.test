@@ -37,7 +37,7 @@ test.describe('Terms', function() {
           driver.findElement({ css: '.authTab [name="USER_PASSWORD"]'}).sendKeys(config.login.coord.password);
 
           driver.findElement({ type: 'submit', name : 'Login'}).click();
-          driver.wait(until.titleIs('Панель ЭЦП'), 1000);
+          driver.wait(until.titleIs('Электронная цифровая подпись'), 1000);
 
           driver.manage().getCookies().then(function (cookies) {
             fs.writeFile(config.login.coord.file, JSON.stringify(cookies, null, 2));
@@ -105,17 +105,20 @@ test.describe('Terms', function() {
   });
 
   test.it('Confirm terms', function() {
+
     driver.get('http://192.168.58.235/sign/terms/');
-    driver.findElement({css: '.js-doc-confirm'}).click();
+
+    driver.executeScript("$('.js-doc-confirm').first().parentsUntil('.actions').parent().css({'max-height': '500px', '-webkit-transform': 'none', '-webkit-transform-origin': 'none'});");
+    driver.sleep(500);
+    driver.findElement({css: '.js-doc-confirm'}).click(); // hidden
+
 
     driver.switchTo().alert().then(
       function() {
-        // console.log("alert detected");
         driver.switchTo().alert().accept();
         driver.sleep(500);
       },
       function() {
-        // console.log("no alert detected");
         assert(false === 'Должно быть предупреждение alert');
       }
     );

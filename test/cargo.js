@@ -48,7 +48,7 @@ test.describe('Cargo', function() {
           driver.findElement({ css: '.authTab [name="USER_PASSWORD"]'}).sendKeys(config.login.partner.password);
 
           driver.findElement({ type: 'submit', name : 'Login'}).click();
-          driver.wait(until.titleIs('ЭЦП: Уведомление о грузополучателе'), 1000);
+          driver.wait(until.titleIs('Уведомление о грузополучателе'), 1000);
 
           driver.manage().getCookies().then(function (cookies) {
             fs.writeFile(config.login.partner.file, JSON.stringify(cookies, null, 2));
@@ -125,7 +125,9 @@ test.describe('Cargo', function() {
   test.it('Sign cargo', function() {
     driver.get('http://192.168.58.235/partner/signcargo/');
 
-    driver.findElement({css: '.js-doc-sign'}).click();
+    // driver.findElement({css: '.js-doc-sign'}).click(); // hidden
+    driver.executeScript("$('.js-doc-sign').click();");
+    driver.sleep(1000);
     driver.wait(until.elementLocated({css: '[data-test="sign-doc-thumbnail"]'}), 500);
     driver.sleep(500);
 
