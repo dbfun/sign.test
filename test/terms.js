@@ -8,42 +8,14 @@ var webdriver = require('selenium-webdriver'),
     test = require('selenium-webdriver/testing'),
     fs = require('fs'),
     config = require('../config.json'),
-    assert = require('assert');
+    assert = require('assert'),
+    authbrowser = require('../lib/authbrowser');
 
 test.describe('Terms', function() {
   var driver, cookies;
 
   test.before(function() {
-
-    driver = new webdriver.Builder()
-        .forBrowser('firefox')
-        .build();
-
-    cookies = JSON.parse(fs.readFileSync(config.login.coord.file));
-    driver.get(config.login.coord.uri);
-    for(var i in cookies) {
-      driver.manage().addCookie(cookies[i]);
-    }
-    driver.get(config.login.coord.uri);
-    driver.sleep(500);
-
-    driver.getTitle().then(function(title) {
-      if(title == 'Авторизация') {
-          console.log('Авторизация...');
-          driver.manage().deleteAllCookies();
-          driver.get(config.login.coord.uri);
-
-          driver.findElement({ css: '.authTab [name="USER_LOGIN"]' }).sendKeys(config.login.coord.user);
-          driver.findElement({ css: '.authTab [name="USER_PASSWORD"]'}).sendKeys(config.login.coord.password);
-
-          driver.findElement({ type: 'submit', name : 'Login'}).click();
-          driver.wait(until.titleIs('Электронная цифровая подпись'), 1000);
-
-          driver.manage().getCookies().then(function (cookies) {
-            fs.writeFile(config.login.coord.file, JSON.stringify(cookies, null, 2));
-          });
-      }
-    });
+    driver = authbrowser.createDriver('coord');
   });
 
   test.it('Create terms', function() {

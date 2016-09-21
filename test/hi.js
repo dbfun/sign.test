@@ -9,7 +9,8 @@ var webdriver = require('selenium-webdriver'),
     Firefox = require('selenium-webdriver/firefox'),
     fs = require('fs'),
     config = require('../config.json'),
-    assert = require('assert');
+    assert = require('assert'),
+    authbrowser = require('../lib/authbrowser');
 
 var profile = new Firefox.Profile();
 
@@ -24,37 +25,7 @@ test.describe('Hi', function() {
   var driver, cookies;
 
   test.before(function() {
-
-    driver = new webdriver.Builder()
-        .withCapabilities(webdriver.Capabilities.firefox())
-        .setFirefoxOptions(opts)
-        .build();
-
-    cookies = JSON.parse(fs.readFileSync(config.login.partner.file));
-    driver.get(config.login.partner.uri);
-    for(var i in cookies) {
-      driver.manage().addCookie(cookies[i]);
-    }
-    driver.get(config.login.partner.uri);
-    driver.sleep(500);
-
-    driver.getTitle().then(function(title) {
-      if(title == 'Авторизация') {
-          console.log('Авторизация...');
-          driver.manage().deleteAllCookies();
-          driver.get(config.login.partner.uri);
-
-          driver.findElement({ css: '.authTab [name="USER_LOGIN"]' }).sendKeys(config.login.partner.user);
-          driver.findElement({ css: '.authTab [name="USER_PASSWORD"]'}).sendKeys(config.login.partner.password);
-
-          driver.findElement({ type: 'submit', name : 'Login'}).click();
-          driver.wait(until.titleIs('ЭЦП: Уведомление о грузополучателе'), 1000);
-
-          driver.manage().getCookies().then(function (cookies) {
-            fs.writeFile(config.login.partner.file, JSON.stringify(cookies, null, 2));
-          });
-      }
-    });
+    driver = authbrowser.createDriver('partnerCargo');
   });
 
   test.it('Sign hi', function() {
