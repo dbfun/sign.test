@@ -7,6 +7,13 @@
       "title": "Электронная цифровая подпись",
       "file": "var/coord.json"
     },
+    "dpPromotion": {
+      "user": "epifanovani@iek.ru",
+      "password": "test101test",
+      "uri": "http://192.168.58.235/sign/",
+      "title": "Электронная цифровая подпись",
+      "file": "var/dpPromotion.json"
+    },
     "fd": {
       "user": "prohorova@iek.ru",
       "password": "test101test",

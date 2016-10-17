@@ -33,8 +33,11 @@ test.describe('Verify', function() {
 
     var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
     var randDateStr = randDate.format("dd.mm.yyyy");
+    driver.findElement({css: '[name="verifyDateStart"]'}).sendKeys(randDateStr);
 
-    driver.findElement({css: '[name="verifyDate"]'}).sendKeys(randDateStr);
+    var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
+    var randDateStr = randDate.format("dd.mm.yyyy");
+    driver.findElement({css: '[name="verifyDateEnd"]'}).sendKeys(randDateStr);
 
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 

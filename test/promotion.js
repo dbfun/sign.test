@@ -17,7 +17,7 @@ test.describe('Promotion', function() {
   var driver, cookies;
 
   test.before(function() {
-    driver = authbrowser.createDriver('coord');
+    driver = authbrowser.createDriver('dpPromotion');
   });
 
   test.it('Create promotion', function() {
@@ -27,11 +27,12 @@ test.describe('Promotion', function() {
     driver.wait(until.urlContains('?view=form'), 1000);
     driver.wait(until.elementLocated({css: '[name="iekUrlico"]'}), 500);
 
+    var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
+    var randDateStr = randDate.format("dd.mm.yyyy");
+    driver.findElement({css: '[name="udDate"]'}).sendKeys(randDateStr);
+
 
     driver.findElement({css: '[name="iekUrlico"]'}).sendKeys('ООО «ИЭК ХОЛДИНГ»');
-
-    driver.findElement({css: '[name="sign1Text1"]'}).sendKeys('Руководитель управления маркетинговых коммуникаций Чесновская Е.В.');
-    driver.findElement({css: '[name="sign1Text2"]'}).sendKeys('на основании Доверенности №19 от 01.01.2016');
 
     var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
     var randDateStr = randDate.format("dd.mm.yyyy");
@@ -46,6 +47,7 @@ test.describe('Promotion', function() {
     driver.findElement({css: '[name="docAffDate"]'}).sendKeys(randDateStr);
 
     driver.findElement({css: '[name="firmName"]'}).sendKeys('ИП Метревели Г.В.');
+    driver.findElement({css: '[name="sign2Text1"]'}).sendKeys('Генеральный директор Иванов Иван Иванович');
 
     var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
     var randDateStr = randDate.format("dd.mm.yyyy");
@@ -58,32 +60,37 @@ test.describe('Promotion', function() {
     // multi
 
     driver.findElement({css: '.js-form-multifield-add[data-name="maket"]'}).click();
-    driver.findElement({css: '[name="maket[0][sizeNdate]"]'}).sendKeys('80 x 200 см 31 января 2016');
-    driver.findElement({css: '[name="maket[0][publisher]"]'}).sendKeys('ЗАО Питер');
-    driver.findElement({css: '[name="maket[0][cost]"]'}).sendKeys('8000');
-    driver.findElement({css: '[name="maket[0][percent]"]'}).sendKeys('35');
+    driver.findElement({css: '[name="maket[1][sizeNdate]"]'}).sendKeys('80 x 200 см 31 января 2016');
+    driver.findElement({css: '[name="maket[1][publisher]"]'}).sendKeys('ЗАО Питер');
+    driver.findElement({css: '[name="maket[1][cost]"]'}).sendKeys('8000');
+    driver.findElement({css: '[name="maket[1][percent]"]'}).sendKeys('35');
 
 
     driver.findElement({css: '.js-form-multifield-add[data-name="article"]'}).click();
-    driver.findElement({css: '[name="article[0][lettersNdate]"]'}).sendKeys('2000 знаков, 1 февраля 2016');
-    driver.findElement({css: '[name="article[0][publisher]"]'}).sendKeys('ООО Дрофа');
-    driver.findElement({css: '[name="article[0][cost]"]'}).sendKeys('12000');
-    driver.findElement({css: '[name="article[0][percent]"]'}).sendKeys('45');
+    driver.findElement({css: '[name="article[1][lettersNdate]"]'}).sendKeys('2000 знаков, 1 февраля 2016');
+    driver.findElement({css: '[name="article[1][publisher]"]'}).sendKeys('ООО Дрофа');
+    driver.findElement({css: '[name="article[1][cost]"]'}).sendKeys('12000');
+    driver.findElement({css: '[name="article[1][percent]"]'}).sendKeys('45');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="promotionOut"]'}).click();
-    driver.findElement({css: '[name="promotionOut[0][name]"]'}).sendKeys('компенсация за изготовление баннера');
-    driver.findElement({css: '[name="promotionOut[0][cost]"]'}).sendKeys('11000');
-    driver.findElement({css: '[name="promotionOut[0][percent]"]'}).sendKeys('32');
+    driver.findElement({css: '[name="promotionOut[1][name]"]'}).sendKeys('компенсация за изготовление баннера');
+    driver.findElement({css: '[name="promotionOut[1][cost]"]'}).sendKeys('11000');
+    driver.findElement({css: '[name="promotionOut[1][percent]"]'}).sendKeys('32');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="promotionOut"]'}).click();
-    driver.findElement({css: '[name="promotionOut[1][name]"]'}).sendKeys('компенсация стоимости аренды рекламной конструкции');
-    driver.findElement({css: '[name="promotionOut[1][cost]"]'}).sendKeys('700');
-    driver.findElement({css: '[name="promotionOut[1][percent]"]'}).sendKeys('80');
+    driver.findElement({css: '[name="promotionOut[2][name]"]'}).sendKeys('компенсация стоимости аренды рекламной конструкции');
+    driver.findElement({css: '[name="promotionOut[2][cost]"]'}).sendKeys('700');
+    driver.findElement({css: '[name="promotionOut[2][percent]"]'}).sendKeys('80');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="exhibitions"]'}).click();
-    driver.findElement({css: '[name="exhibitions[0][name]"]'}).sendKeys('Всероссийская выставка электротехнической продукции');
-    driver.findElement({css: '[name="exhibitions[0][cost]"]'}).sendKeys('700');
-    driver.findElement({css: '[name="exhibitions[0][percent]"]'}).sendKeys('80');
+    driver.findElement({css: '[name="exhibitions[1][name]"]'}).sendKeys('Всероссийская выставка электротехнической продукции');
+    driver.findElement({css: '[name="exhibitions[1][cost]"]'}).sendKeys('10000');
+    driver.findElement({css: '[name="exhibitions[1][percent]"]'}).sendKeys('30');
+
+    driver.findElement({css: '.js-form-multifield-add[data-name="seminar"]'}).click();
+    driver.findElement({css: '[name="seminar[1][name]"]'}).sendKeys('Семинар повышения квалификации');
+    driver.findElement({css: '[name="seminar[1][cost]"]'}).sendKeys('5000');
+    driver.findElement({css: '[name="seminar[1][percent]"]'}).sendKeys('80');
 
 
 

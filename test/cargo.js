@@ -12,6 +12,8 @@ var webdriver = require('selenium-webdriver'),
     assert = require('assert'),
     authbrowser = require('../lib/authbrowser');
 
+require('../lib/date');
+
 var profile = new Firefox.Profile();
 
 profile.setPreference('browser.download.folderList', 2);
@@ -33,6 +35,10 @@ test.describe('Cargo', function() {
     driver.findElement({css: '[data-test="create-new"]'}).click();
     driver.wait(until.urlContains('?view=form'), 1000);
     driver.wait(until.elementLocated({css: '[name="iekUrlico"]'}), 500);
+
+    var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
+    var randDateStr = randDate.format("dd.mm.yyyy");
+    driver.findElement({css: '[name="udDate"]'}).sendKeys(randDateStr);
 
     driver.findElement({css: '[name="iekUrlico"]'}).sendKeys('ООО «ИЭК ХОЛДИНГ»');
     driver.executeScript("$('[name=\"ipOrUrlico\"]').val('2').trigger('change')");
@@ -81,6 +87,7 @@ test.describe('Cargo', function() {
 
   test.it('Edit cargo', function() {
     driver.get('http://192.168.58.235/partner/signcargo/');
+    driver.wait(until.elementLocated({css: '.js-doc-edit'}), 1000);
     driver.findElement({css: '.js-doc-edit'}).click();
     driver.wait(until.urlContains('?view=edit'), 1000);
 
@@ -95,11 +102,12 @@ test.describe('Cargo', function() {
 
   test.it('Sign cargo', function() {
     driver.get('http://192.168.58.235/partner/signcargo/');
+    driver.wait(until.elementLocated({css: '.js-form-details'}), 2000);
 
     // driver.findElement({css: '.js-doc-sign'}).click(); // hidden
-    driver.executeScript("$('.js-doc-sign').click();");
-    driver.sleep(1000);
-    driver.wait(until.elementLocated({css: '[data-test="sign-doc-thumbnail"]'}), 500);
+    driver.executeScript("$('.js-doc-sign').first().click();");
+    driver.sleep(500);
+    driver.wait(until.elementLocated({css: '[data-test="sign-doc-thumbnail"]'}), 1000);
     driver.sleep(500);
 
 

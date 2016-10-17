@@ -38,12 +38,13 @@ test.describe('Hi', function() {
 
     driver.findElement({ css: '.js-upload-dataset [name="file"]'}).sendKeys(__dirname + '/../files/hello.txt');
 
-    driver.executeScript("$('.js-upload-dataset [name=\"file\"]').trigger('change')");
-    driver.sleep(1000);
+    // driver.sleep(500);
+    // driver.executeScript("$('.js-upload-dataset [name=\"file\"]').trigger('change')");
+
+    driver.sleep(2000);
 
     driver.executeScript("return $('.js-upload-result .notify-error').text();").then(
       function(ret) {
-        // console.log(ret);
         assert(ret == 'Ошибка подписи. Убедитесь что документ подписан сертификатом, выданным IEK');
       });
 
@@ -52,7 +53,6 @@ test.describe('Hi', function() {
   });
 
   test.it('Thumbnail hi', function() {
-
     driver.findElement({css: '.js-doc-thumbnail'}).click();
     driver.sleep(500);
 
