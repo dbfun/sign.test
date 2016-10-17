@@ -14,7 +14,7 @@ var webdriver = require('selenium-webdriver'),
 require('../lib/date');
 
 test.describe('Verify', function() {
-  var driver, cookies;
+  var driver;
 
   test.before(function() {
     driver = authbrowser.createDriver('fd');
@@ -22,6 +22,7 @@ test.describe('Verify', function() {
 
   test.it('Create verify', function() {
     driver.get('http://192.168.58.235/sign/verify/');
+    driver.wait(until.elementLocated({css: '[data-test="create-new"]'}), 500);
     driver.findElement({css: '[data-test="create-new"]'}).click();
 
     driver.wait(until.urlContains('?view=form'), 1000);
@@ -47,7 +48,6 @@ test.describe('Verify', function() {
         retJSVar.text = $('[name=\"VFile\"]').siblings('.js-signform-alert').text(); \
         return retJSVar;").then(
       function(ret) {
-        // console.log(ret);
         assert(ret.text == 'Выберите непустой XLSX файл для загрузки!');
       });
 

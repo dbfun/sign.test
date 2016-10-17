@@ -14,7 +14,7 @@ var webdriver = require('selenium-webdriver'),
 require('../lib/date');
 
 test.describe('Promotion', function() {
-  var driver, cookies;
+  var driver;
 
   test.before(function() {
     driver = authbrowser.createDriver('dpPromotion');
@@ -22,6 +22,9 @@ test.describe('Promotion', function() {
 
   test.it('Create promotion', function() {
     driver.get('http://192.168.58.235/sign/promotion/');
+
+    driver.wait(until.elementLocated({css: '[data-test="create-new"]'}), 500);
+
     driver.findElement({css: '[data-test="create-new"]'}).click();
 
     driver.wait(until.urlContains('?view=form'), 1000);
@@ -92,15 +95,11 @@ test.describe('Promotion', function() {
     driver.findElement({css: '[name="seminar[1][cost]"]'}).sendKeys('5000');
     driver.findElement({css: '[name="seminar[1][percent]"]'}).sendKeys('80');
 
-
-
-
     driver.findElement({css: '[name="printing"]'}).sendKeys('100000');
     driver.findElement({css: '[name="souvenir"]'}).sendKeys('200000');
     driver.findElement({css: '[name="productExamples"]'}).sendKeys('300000');
     driver.findElement({css: '[name="POSmaterials"]'}).sendKeys('400000');
     driver.findElement({css: '[name="demonstrationBoards"]'}).sendKeys('500000');
-
 
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
     driver.wait(until.urlIs('http://192.168.58.235/sign/promotion/'), 1000);

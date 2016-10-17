@@ -4,29 +4,31 @@
       "user": "drozdovayua@iek.ru",
       "password": "test101test",
       "uri": "http://192.168.58.235/sign/",
-      "title": "Электронная цифровая подпись",
-      "file": "var/coord.json"
+      "title": "Электронная цифровая подпись"
     },
     "dpPromotion": {
       "user": "epifanovani@iek.ru",
       "password": "test101test",
       "uri": "http://192.168.58.235/sign/",
-      "title": "Электронная цифровая подпись",
-      "file": "var/dpPromotion.json"
+      "title": "Электронная цифровая подпись"
     },
     "fd": {
       "user": "prohorova@iek.ru",
       "password": "test101test",
       "uri": "http://192.168.58.235/sign/",
-      "title": "Электронная цифровая подпись",
-      "file": "var/fd.json"
+      "title": "Электронная цифровая подпись"
     },
     "partnerCargo": {
       "user": "o.lipchanskaya@electroff.ru",
       "password": "test101test",
       "uri": "http://192.168.58.235/partner/signcargo/",
-      "title": "Уведомление о грузополучателе",
-      "file": "var/partner.json"
+      "title": "Уведомление о грузополучателе"
+    },
+    "partnerHi": {
+      "user": "o.lipchanskaya@electroff.ru",
+      "password": "test101test",
+      "uri": "http://192.168.58.235/partner/sign/",
+      "title": "Счет-спецификация"
     }
   }
 }

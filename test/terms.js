@@ -14,7 +14,7 @@ var webdriver = require('selenium-webdriver'),
 require('../lib/date');
 
 test.describe('Terms', function() {
-  var driver, cookies;
+  var driver;
 
   test.before(function() {
     driver = authbrowser.createDriver('coord');
@@ -22,6 +22,8 @@ test.describe('Terms', function() {
 
   test.it('Create terms', function() {
     driver.get('http://192.168.58.235/sign/terms/');
+    driver.wait(until.elementLocated({css: '[data-test="create-new"]'}), 500);
+
     driver.findElement({css: '[data-test="create-new"]'}).click();
 
     driver.wait(until.urlContains('?view=form'), 1000);
@@ -40,6 +42,7 @@ test.describe('Terms', function() {
 
     // Commerce
     driver.findElement({css: '[name="partnerType"]'}).sendKeys('дистрибьютор');
+    driver.sleep(500);
 
     driver.findElement({css: '[name="discount_type_1_1"]'}).clear();
     driver.findElement({css: '[name="discount_type_1_2"]'}).clear();
@@ -69,7 +72,6 @@ test.describe('Terms', function() {
         retJSVar.text = $('[name=\"blankSeria\"]').siblings('.js-signform-alert').text(); \
         return retJSVar;").then(
       function(ret) {
-        // console.log(ret);
         assert(ret.text == 'Введите бланк серия');
       });
 
@@ -88,6 +90,7 @@ test.describe('Terms', function() {
 
     // Commerce
     driver.findElement({css: '[name="partnerType"]'}).sendKeys('дистрибьютор');
+    driver.sleep(500);
 
     driver.findElement({css: '[name="discount_type_1_1"]'}).clear();
     driver.findElement({css: '[name="discount_type_1_2"]'}).clear();
@@ -99,7 +102,6 @@ test.describe('Terms', function() {
 
     driver.sleep(500);
     driver.findElement({css: '.js-signform [type="submit"]'}).click(); // Not working WTF?
-    // driver.findElement(By.id('sign-submit')).click();
     driver.wait(until.urlIs('http://192.168.58.235/sign/terms/'), 5000, 'submit');
   });
 

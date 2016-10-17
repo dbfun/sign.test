@@ -14,17 +14,8 @@ var webdriver = require('selenium-webdriver'),
 
 require('../lib/date');
 
-var profile = new Firefox.Profile();
-
-profile.setPreference('browser.download.folderList', 2);
-profile.setPreference('browser.download.manager.showWhenStarting', false);
-profile.setPreference('browser.download.dir', '/tmp');
-profile.setPreference('browser.helperApps.neverAsk.saveToDisk', "application/xml,application/octet-stream,text/plain,text/xml,image/jpeg,image/png,image/gif");
-
-var opts = new Firefox.Options().setProfile(profile);
-
 test.describe('Cargo', function() {
-  var driver, cookies;
+  var driver;
 
   test.before(function() {
     driver = authbrowser.createDriver('partnerCargo');
@@ -32,6 +23,8 @@ test.describe('Cargo', function() {
 
   test.it('Create cargo', function() {
     driver.get('http://192.168.58.235/partner/signcargo/');
+    driver.wait(until.elementLocated({css: '[data-test="create-new"]'}), 500);
+
     driver.findElement({css: '[data-test="create-new"]'}).click();
     driver.wait(until.urlContains('?view=form'), 1000);
     driver.wait(until.elementLocated({css: '[name="iekUrlico"]'}), 500);
@@ -73,7 +66,6 @@ test.describe('Cargo', function() {
         retJSVar.text = $('[name=\"headInn\"]').siblings('.js-signform-alert').text(); \
         return retJSVar;").then(
       function(ret) {
-        // console.log(ret);
         assert(ret.text == 'Неправильно указано ИНН. Правильный формат: 10 или 12 цифр. Пример: 1234567890');
       });
 
@@ -120,7 +112,6 @@ test.describe('Cargo', function() {
           complete: function (XMLHttpRequest, textStatus) {retJSVar.fileCode = XMLHttpRequest.status;} }); \
         return retJSVar;").then(
       function(ret) {
-        // console.log(ret);
         assert(ret.fileCode == 200);
         assert(ret.thumbnailCode == 200);
       });
@@ -139,7 +130,6 @@ test.describe('Cargo', function() {
           complete: function (XMLHttpRequest, textStatus) {retJSVar.thumbnailCode = XMLHttpRequest.status;} }); \
         return retJSVar;").then(
       function(ret) {
-        // console.log(ret);
         assert(ret.thumbnailCode == 200);
       });
 
