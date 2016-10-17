@@ -57,6 +57,20 @@ test.describe('Hi', function() {
       });
   });
 
+  test.it('Search hi', function() {
+    driver.get('http://192.168.58.235/partner/sign/');
+    driver.wait(until.elementLocated({css: '.js-tabs-control .sign-tab-control[data-tab="search"]'}), 500);
+
+    driver.findElement({css: '.js-tabs-control .sign-tab-control[data-tab="search"]'}).click();
+
+    driver.findElement({css: '.js-sign-search-input'}).sendKeys('ХИ005894');
+    driver.findElement({css: '.js-sign-search'}).click();
+    driver.wait(until.elementLocated({css: '.js-doc-thumbnail[data-title="ХИ005894"]'}), 2000);
+
+
+
+  });
+
   test.after(function() {
     driver.quit();
   });

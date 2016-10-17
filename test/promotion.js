@@ -17,23 +17,17 @@ test.describe('Promotion', function() {
   var driver;
 
   test.before(function() {
-    driver = authbrowser.createDriver('dpPromotion');
+    driver = authbrowser.createDriver('dmPromotion');
   });
 
   test.it('Create promotion', function() {
     driver.get('http://192.168.58.235/sign/promotion/');
-
     driver.wait(until.elementLocated({css: '[data-test="create-new"]'}), 500);
 
     driver.findElement({css: '[data-test="create-new"]'}).click();
 
     driver.wait(until.urlContains('?view=form'), 1000);
     driver.wait(until.elementLocated({css: '[name="iekUrlico"]'}), 500);
-
-    var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
-    var randDateStr = randDate.format("dd.mm.yyyy");
-    driver.findElement({css: '[name="udDate"]'}).sendKeys(randDateStr);
-
 
     driver.findElement({css: '[name="iekUrlico"]'}).sendKeys('ООО «ИЭК ХОЛДИНГ»');
 
@@ -101,9 +95,45 @@ test.describe('Promotion', function() {
     driver.findElement({css: '[name="POSmaterials"]'}).sendKeys('400000');
     driver.findElement({css: '[name="demonstrationBoards"]'}).sendKeys('500000');
 
+
+    // test empty field
+    driver.findElement({css: '.js-signform [type="submit"]'}).click();
+    driver.sleep(1000);
+    driver.executeScript("var retJSVar = {}; \
+        retJSVar.text = $('[name=\"udDate\"]').siblings('.js-signform-alert').text(); \
+        return retJSVar;").then(
+      function(ret) {
+        assert(ret.text == 'Неправильно указана дата');
+      });
+
+    var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
+    var randDateStr = randDate.format("dd.mm.yyyy");
+    driver.findElement({css: '[name="udDate"]'}).sendKeys(randDateStr);
+
+
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
     driver.wait(until.urlIs('http://192.168.58.235/sign/promotion/'), 1000);
 
+  });
+
+  test.it('Confirm promotion', function() {
+    driver.get('http://192.168.58.235/sign/promotion/');
+    driver.wait(until.elementLocated({css: '.js-form-details'}), 1000);
+
+    driver.executeScript("$('.js-doc-confirm').first().parentsUntil('.actions').parent().css({'max-height': '500px', '-webkit-transform': 'none', '-webkit-transform-origin': 'none'});");
+    driver.sleep(500);
+    driver.findElement({css: '.js-doc-confirm'}).click(); // hidden
+
+
+    driver.switchTo().alert().then(
+      function() {
+        driver.switchTo().alert().accept();
+        driver.sleep(500);
+      },
+      function() {
+        assert(false === 'Должно быть предупреждение alert');
+      }
+    );
   });
 
   test.after(function() {

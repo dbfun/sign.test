@@ -6,7 +6,19 @@
       "uri": "http://192.168.58.235/sign/",
       "title": "Электронная цифровая подпись"
     },
-    "dpPromotion": {
+    "dpHead": {
+      "user": "nikolaevd",
+      "password": "test101test",
+      "uri": "http://192.168.58.235/sign/",
+      "title": "Электронная цифровая подпись"
+    },
+    "lawyer": {
+      "user": "lawyer@iek.ru",
+      "password": "test101test",
+      "uri": "http://192.168.58.235/sign/",
+      "title": "Электронная цифровая подпись"
+    },
+    "dmPromotion": {
       "user": "epifanovani@iek.ru",
       "password": "test101test",
       "uri": "http://192.168.58.235/sign/",
