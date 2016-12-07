@@ -34,7 +34,7 @@
       "user": "o.lipchanskaya@electroff.ru",
       "password": "test101test",
       "uri": "http://192.168.58.235/partner/signcargo/",
-      "title": "Уведомление о грузополучателе"
+      "title": "Уведомление о грузополучателе и письмо об адресе"
     },
     "partnerHi": {
       "user": "o.lipchanskaya@electroff.ru",

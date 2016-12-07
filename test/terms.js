@@ -32,9 +32,13 @@ test.describe('Terms', function() {
 
     driver.findElement({css: '[name="udDate"]'}).sendKeys(data.randDateStr(2016));
 
-    driver.findElement({css: '[name="iekUrlico"]'}).sendKeys('ООО «ИЭК ХОЛДИНГ»');
+    // driver.findElement({css: '[name="iekUrlico"]'}).sendKeys('ООО «ИЭК ХОЛДИНГ»');
+    driver.executeScript("$('[name=\"iekUrlico\"]').val('1')");
+
     driver.findElement({css: '[name="dppNumber"]'}).sendKeys('И-А/' + data.randFloat(1000, 10000, 0));
     driver.findElement({css: '[name="dppDate"]'}).sendKeys('01.01.2016');
+
+    driver.executeScript("$('[name=\"partnerKod\"]').val('7060')");
 
     driver.executeScript("$('[name=\"ipOrUrlico\"]').val('2').trigger('change')");
 
@@ -42,6 +46,9 @@ test.describe('Terms', function() {
     driver.findElement({css: '[name="ipFirstName"]'}).sendKeys('Котов');
     driver.findElement({css: '[name="ipSecondName"]'}).sendKeys('Иван');
     driver.findElement({css: '[name="ipLastName"]'}).sendKeys('Михайлович');
+
+    driver.executeScript("$('[name=\"regIpDoc\"]').val('1').trigger('change')");
+    driver.sleep(200);
 
     driver.findElement({css: '[name="blankNumber"]'}).sendKeys( data.randFloat(1000, 10000, 0) ); // 500
     driver.findElement({css: '[name="ogrnIp"]'}).sendKeys(315392600033691 + Math.floor(Math.random() * 1000000) );

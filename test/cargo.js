@@ -21,19 +21,24 @@ test.describe('Cargo', function() {
     driver = authbrowser.createDriver('partnerCargo');
   });
 
-  test.it('Create cargo', function() {
+  test.it('Create cargo doc+letter ip', function() {
     driver.get('http://192.168.58.235/partner/signcargo/');
     driver.wait(until.elementLocated({css: '[data-test="create-new"]'}), 500);
 
     driver.findElement({css: '[data-test="create-new"]'}).click();
     driver.wait(until.urlContains('?view=form'), 1000);
-    driver.wait(until.elementLocated({css: '[name="iekUrlico"]'}), 500);
+    driver.wait(until.elementLocated({css: '[name="docSetType"]'}), 500);
+
+    // Уведомление + письмо
+    driver.executeScript("$('[name=\"docSetType\"]').val('1').trigger('change')");
+    driver.sleep(1000);
 
     var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
     var randDateStr = randDate.format("dd.mm.yyyy");
     driver.findElement({css: '[name="udDate"]'}).sendKeys(randDateStr);
 
-    driver.findElement({css: '[name="iekUrlico"]'}).sendKeys('ООО «ИЭК ХОЛДИНГ»');
+    driver.executeScript("$('[name=\"iekUrlico\"]').val('1')");
+    // ИП
     driver.executeScript("$('[name=\"ipOrUrlico\"]').val('2').trigger('change')");
 
     driver.findElement({css: '[name="headOgrnIp"]'}).sendKeys(315392600033691 + Math.floor(Math.random() * 1000000) );
@@ -45,7 +50,7 @@ test.describe('Cargo', function() {
     driver.findElement({css: '[name="footHeadFio"]'}).sendKeys("Котов А.М.");
     driver.findElement({css: '[name="footHeadPost"]'}).sendKeys('Генеральный директор');
 
-    driver.findElement({css: '[name="name"]'}).sendKeys("ООО \"Регион " + Math.floor(Math.random() * 1000) + "\"");
+    driver.findElement({css: '[name="name"]'}).sendKeys("ООО \"Регион " + Math.floor(Math.random() * 1000) + "\"" + ' doc+letter ip');
     driver.findElement({css: '[name="ogrn"]'}).sendKeys(1117746254922 + Math.floor(Math.random() * 1000000));
     driver.findElement({css: '[name="innkpp"]'}).sendKeys('7716686249/771601001');
     driver.findElement({css: '[name="place"]'}).sendKeys('129344, г. Москва, ул. Искры, д.31, корп. 1, офис 702');
@@ -76,6 +81,118 @@ test.describe('Cargo', function() {
   });
 
 
+  test.it('Create cargo doc ul', function() {
+    driver.get('http://192.168.58.235/partner/signcargo/');
+    driver.wait(until.elementLocated({css: '[data-test="create-new"]'}), 500);
+
+    driver.findElement({css: '[data-test="create-new"]'}).click();
+    driver.wait(until.urlContains('?view=form'), 1000);
+    driver.wait(until.elementLocated({css: '[name="docSetType"]'}), 500);
+
+    // Уведомление
+    driver.executeScript("$('[name=\"docSetType\"]').val('2').trigger('change')");
+    driver.sleep(1000);
+
+    var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
+    var randDateStr = randDate.format("dd.mm.yyyy");
+    driver.findElement({css: '[name="udDate"]'}).sendKeys(randDateStr);
+
+    driver.executeScript("$('[name=\"iekUrlico\"]').val('1')");
+    // Юр
+    driver.executeScript("$('[name=\"ipOrUrlico\"]').val('1').trigger('change')");
+
+    driver.findElement({css: '[name="headOgrn"]'}).sendKeys(1234567890123 + Math.floor(Math.random() * 1000000) );
+    driver.findElement({css: '[name="headKpp"]'}).sendKeys(123456789 + Math.floor(Math.random() * 100000) );
+
+    driver.findElement({css: '[name="headPlace"]'}).sendKeys('Россия, 236029, г. Калининград, ул. Полковника Ефремова, д.2, кв. 73');
+    driver.findElement({css: '[name="headAddress"]'}).sendKeys('Россия, 236029, г. Калининград, Московский проспект, 195');
+    driver.findElement({css: '[name="headPhoneFax"]'}).sendKeys('8 (4012) 777-999');
+    driver.findElement({css: '[name="headBank"]'}).sendKeys("Р/С 40802810375000008026\nФ-Л \"Европейский\" ПАО Банк Санкт-Петербург\nБИК 042748877\nг. Калининград\nК/С 30101810927480000877");
+    driver.findElement({css: '[name="footHeadFio"]'}).sendKeys("Котов А.М.");
+    driver.findElement({css: '[name="footHeadPost"]'}).sendKeys('Генеральный директор');
+
+    driver.findElement({css: '[name="name"]'}).sendKeys("ООО \"Регион " + Math.floor(Math.random() * 1000) + "\"" + " doc ul");
+    driver.findElement({css: '[name="ogrn"]'}).sendKeys(1117746254922 + Math.floor(Math.random() * 1000000));
+    driver.findElement({css: '[name="innkpp"]'}).sendKeys('7716686249/771601001');
+    driver.findElement({css: '[name="place"]'}).sendKeys('129344, г. Москва, ул. Искры, д.31, корп. 1, офис 702');
+    driver.findElement({css: '[name="address"]'}).sendKeys("МО, Ленинский район, Проектируемый проезд № 253, промзона \"ВЗ ГИАП\"");
+    driver.findElement({css: '[name="bank"]'}).sendKeys("р/с 40702810800000116903 в ПАО \"ВТБ 24\" г. Москва, к/с 30101810100000000716, БИК 044525716");
+    driver.findElement({css: '[name="headPerson"]'}).sendKeys("Генеральный директор Бебуа Игори Гурамович");
+    driver.findElement({css: '[name="contactPerson"]'}).sendKeys("Генеральный директор Бебуа Игори Гурамович");
+    driver.findElement({css: '[name="phone"]'}).sendKeys("8-903-729-54-29, 8 (495) 961-03-37");
+    driver.findElement({css: '[name="email"]'}).sendKeys("kld.region-39@inbox.ru");
+
+    driver.findElement({css: '.js-signform [type="submit"]'}).click();
+
+    driver.sleep(1000);
+
+    driver.executeScript("var retJSVar = {}; \
+        retJSVar.text = $('[name=\"headInn\"]').siblings('.js-signform-alert').text(); \
+        return retJSVar;").then(
+      function(ret) {
+        assert(ret.text == 'Неправильно указано ИНН. Правильный формат: 10 или 12 цифр. Пример: 1234567890');
+      });
+
+    driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
+    driver.findElement({css: '.js-signform [type="submit"]'}).click();
+
+    driver.wait(until.urlIs('http://192.168.58.235/partner/signcargo/'), 1000);
+  });
+
+
+  test.it('Create cargo letter ul', function() {
+    driver.get('http://192.168.58.235/partner/signcargo/');
+    driver.wait(until.elementLocated({css: '[data-test="create-new"]'}), 500);
+
+    driver.findElement({css: '[data-test="create-new"]'}).click();
+    driver.wait(until.urlContains('?view=form'), 1000);
+    driver.wait(until.elementLocated({css: '[name="docSetType"]'}), 500);
+
+    // Уведомление
+    driver.executeScript("$('[name=\"docSetType\"]').val('3').trigger('change')");
+    driver.sleep(1000);
+
+    var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
+    var randDateStr = randDate.format("dd.mm.yyyy");
+    driver.findElement({css: '[name="udDate"]'}).sendKeys(randDateStr);
+
+    driver.executeScript("$('[name=\"iekUrlico\"]').val('1')");
+    // Юр
+    driver.executeScript("$('[name=\"ipOrUrlico\"]').val('1').trigger('change')");
+
+    driver.findElement({css: '[name="headOgrn"]'}).sendKeys(1234567890123 + Math.floor(Math.random() * 1000000) );
+    driver.findElement({css: '[name="headKpp"]'}).sendKeys(123456789 + Math.floor(Math.random() * 100000) );
+
+    driver.findElement({css: '[name="headPlace"]'}).sendKeys('Россия, 236029, г. Калининград, ул. Полковника Ефремова, д.2, кв. 73');
+    driver.findElement({css: '[name="headAddress"]'}).sendKeys('Россия, 236029, г. Калининград, Московский проспект, 195');
+    driver.findElement({css: '[name="headPhoneFax"]'}).sendKeys('8 (4012) 777-999');
+    driver.findElement({css: '[name="headBank"]'}).sendKeys("Р/С 40802810375000008026\nФ-Л \"Европейский\" ПАО Банк Санкт-Петербург\nБИК 042748877\nг. Калининград\nК/С 30101810927480000877");
+    driver.findElement({css: '[name="footHeadFio"]'}).sendKeys("Котов А.М.");
+
+    driver.findElement({css: '[name="innkpp"]'}).sendKeys('7716686249/771601001');
+    driver.findElement({css: '[name="name"]'}).sendKeys("ООО \"Регион " + Math.floor(Math.random() * 1000) + "\"" + " letter ul");
+    driver.findElement({css: '[name="letterAddress"]'}).sendKeys("МО, Ленинский район, Проектируемый проезд № 253, промзона \"ВЗ ГИАП\"");
+
+    driver.findElement({css: '.js-signform [type="submit"]'}).click();
+
+    driver.sleep(1000);
+
+    driver.executeScript("var retJSVar = {}; \
+        retJSVar.text = $('[name=\"headInn\"]').siblings('.js-signform-alert').text(); \
+        return retJSVar;").then(
+      function(ret) {
+        assert(ret.text == 'Неправильно указано ИНН. Правильный формат: 10 или 12 цифр. Пример: 1234567890');
+      });
+
+    driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
+    driver.findElement({css: '.js-signform [type="submit"]'}).click();
+
+    driver.wait(until.urlIs('http://192.168.58.235/partner/signcargo/'), 1000);
+  });
+
+
+
+
 
   test.it('Edit cargo', function() {
     driver.get('http://192.168.58.235/partner/signcargo/');
@@ -83,10 +200,10 @@ test.describe('Cargo', function() {
     driver.findElement({css: '.js-doc-edit'}).click();
     driver.wait(until.urlContains('?view=edit'), 1000);
 
-    driver.wait(until.elementLocated({css: '[name="ogrn"]'}), 500);
+    driver.wait(until.elementLocated({css: '[name="headInn"]'}), 500);
 
-    driver.findElement({css: '[name="ogrn"]'}).clear();
-    driver.findElement({css: '[name="ogrn"]'}).sendKeys(1117746254922 + Math.floor(Math.random() * 1000000));
+    driver.findElement({css: '[name="headInn"]'}).clear();
+    driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
 
     driver.findElement({css: '.js-signform [type="submit"]'}).click(); // Not working WTF?
     driver.wait(until.urlIs('http://192.168.58.235/partner/signcargo/'), 5000, 'submit');
@@ -121,6 +238,9 @@ test.describe('Cargo', function() {
   });
 
   test.it('Thumbnail cargo', function() {
+    driver.get('http://192.168.58.235/partner/signcargo/');
+    driver.wait(until.elementLocated({css: '.js-doc-thumbnail'}), 1000);
+
     driver.findElement({css: '.js-doc-thumbnail'}).click();
     driver.sleep(500);
 

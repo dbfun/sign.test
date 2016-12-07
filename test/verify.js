@@ -28,7 +28,8 @@ test.describe('Verify', function() {
     driver.wait(until.urlContains('?view=form'), 1000);
     driver.wait(until.elementLocated({css: '[name="iekUrlico"]'}), 500);
 
-    driver.findElement({css: '[name="iekUrlico"]'}).sendKeys('ООО «ИЭК ХОЛДИНГ»');
+    // driver.findElement({css: '[name="iekUrlico"]'}).sendKeys('ООО «ИЭК ХОЛДИНГ»');
+    driver.executeScript("$('[name=\"iekUrlico\"]').val('1')");
     // driver.findElement({css: '[name="partnerKod"]'}).sendKeys('Электрофф ООО');
     driver.executeScript("$('[name=\"partnerKod\"]').val('7060')");
 
