@@ -61,88 +61,106 @@ test.describe('Promotion', function() {
 
     driver.findElement({css: '.js-form-multifield-add[data-name="maketYandexGoogle"]'}).click();
     driver.findElement({css: '[name="maketYandexGoogle[1][cost]"]'}).sendKeys('8000');
+    driver.findElement({css: '[name="maketYandexGoogle[1][percent]"]'}).clear();
     driver.findElement({css: '[name="maketYandexGoogle[1][percent]"]'}).sendKeys('35');
 
 
     driver.findElement({css: '.js-form-multifield-add[data-name="maketSite"]'}).click();
     driver.findElement({css: '[name="maketSite[1][cost]"]'}).sendKeys('9000');
     driver.findElement({css: '[name="maketSite[1][site]"]'}).sendKeys('noname.ru');
+    driver.findElement({css: '[name="maketSite[1][percent]"]'}).clear();
     driver.findElement({css: '[name="maketSite[1][percent]"]'}).sendKeys('45');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="maketGis"]'}).click();
     driver.findElement({css: '[name="maketGis[1][cost]"]'}).sendKeys('10000');
+    driver.findElement({css: '[name="maketGis[1][percent]"]'}).clear();
     driver.findElement({css: '[name="maketGis[1][percent]"]'}).sendKeys('35');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="maketIsMod"]'}).click();
     driver.findElement({css: '[name="maketIsMod[1][izdanie]"]'}).sendKeys('ООО Дрофа');
     driver.findElement({css: '[name="maketIsMod[1][cost]"]'}).sendKeys('12000');
+    driver.findElement({css: '[name="maketIsMod[1][percent]"]'}).clear();
     driver.findElement({css: '[name="maketIsMod[1][percent]"]'}).sendKeys('45');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="promotionBanner"]'}).click();
     driver.findElement({css: '[name="promotionBanner[1][cost]"]'}).sendKeys('11000');
+    driver.findElement({css: '[name="promotionBanner[1][percent]"]'}).clear();
     driver.findElement({css: '[name="promotionBanner[1][percent]"]'}).sendKeys('10');
 
 
     driver.findElement({css: '.js-form-multifield-add[data-name="promotionBannerRent"]'}).click();
     driver.findElement({css: '[name="promotionBannerRent[1][cost]"]'}).sendKeys('12000');
+    driver.findElement({css: '[name="promotionBannerRent[1][percent]"]'}).clear();
     driver.findElement({css: '[name="promotionBannerRent[1][percent]"]'}).sendKeys('20');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="promotionPoster"]'}).click();
     driver.findElement({css: '[name="promotionPoster[1][cost]"]'}).sendKeys('13000');
+    driver.findElement({css: '[name="promotionPoster[1][percent]"]'}).clear();
     driver.findElement({css: '[name="promotionPoster[1][percent]"]'}).sendKeys('30');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="exhibitions"]'}).click();
     driver.findElement({css: '[name="exhibitions[1][name]"]'}).sendKeys('Всероссийская выставка электротехнической продукции');
     driver.findElement({css: '[name="exhibitions[1][cost]"]'}).sendKeys('10000');
+    driver.findElement({css: '[name="exhibitions[1][percent]"]'}).clear();
     driver.findElement({css: '[name="exhibitions[1][percent]"]'}).sendKeys('30');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="seminarCity"]'}).click();
     driver.findElement({css: '[name="seminarCity[1][city]"]'}).sendKeys('Москва');
     driver.findElement({css: '[name="seminarCity[1][cost]"]'}).sendKeys('5000');
+    driver.findElement({css: '[name="seminarCity[1][percent]"]'}).clear();
     driver.findElement({css: '[name="seminarCity[1][percent]"]'}).sendKeys('80');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="eventm"]'}).click();
     driver.findElement({css: '[name="eventm[1][name]"]'}).sendKeys('Митап застройщиков');
     driver.findElement({css: '[name="eventm[1][cost]"]'}).sendKeys('10000');
+    driver.findElement({css: '[name="eventm[1][percent]"]'}).clear();
     driver.findElement({css: '[name="eventm[1][percent]"]'}).sendKeys('75');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="brandingComp"]'}).click();
     driver.findElement({css: '[name="brandingComp[1][cost]"]'}).sendKeys('7800');
+    driver.findElement({css: '[name="brandingComp[1][percent]"]'}).clear();
     driver.findElement({css: '[name="brandingComp[1][percent]"]'}).sendKeys('90');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="brandingCompRent"]'}).click();
     driver.findElement({css: '[name="brandingCompRent[1][cost]"]'}).sendKeys('28000');
+    driver.findElement({css: '[name="brandingCompRent[1][percent]"]'}).clear();
     driver.findElement({css: '[name="brandingCompRent[1][percent]"]'}).sendKeys('80');
 
 
     driver.findElement({css: '.js-form-multifield-add[data-name="catalog"]'}).click();
     driver.findElement({css: '[name="catalog[1][name]"]'}).sendKeys('Каталог электротехнической продукции');
     driver.findElement({css: '[name="catalog[1][cost]"]'}).sendKeys('100000');
+    driver.findElement({css: '[name="catalog[1][percent]"]'}).clear();
     driver.findElement({css: '[name="catalog[1][percent]"]'}).sendKeys('30');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="leaflet"]'}).click();
     driver.findElement({css: '[name="leaflet[1][name]"]'}).sendKeys('Листовка электротехнической продукции');
     driver.findElement({css: '[name="leaflet[1][cost]"]'}).sendKeys('100000');
+    driver.findElement({css: '[name="leaflet[1][percent]"]'}).clear();
     driver.findElement({css: '[name="leaflet[1][percent]"]'}).sendKeys('30');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="souvenirProd"]'}).click();
     driver.findElement({css: '[name="souvenirProd[1][name]"]'}).sendKeys('Ручки с фирменным логотипом');
     driver.findElement({css: '[name="souvenirProd[1][cost]"]'}).sendKeys('10000');
+    driver.findElement({css: '[name="souvenirProd[1][percent]"]'}).clear();
     driver.findElement({css: '[name="souvenirProd[1][percent]"]'}).sendKeys('40');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="posm"]'}).click();
     driver.findElement({css: '[name="posm[1][name]"]'}).sendKeys('POSM');
     driver.findElement({css: '[name="posm[1][cost]"]'}).sendKeys('7800');
+    driver.findElement({css: '[name="posm[1][percent]"]'}).clear();
     driver.findElement({css: '[name="posm[1][percent]"]'}).sendKeys('30');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="stand"]'}).click();
     driver.findElement({css: '[name="stand[1][name]"]'}).sendKeys('Стенд электротехнической продукции');
     driver.findElement({css: '[name="stand[1][cost]"]'}).sendKeys('9000');
+    driver.findElement({css: '[name="stand[1][percent]"]'}).clear();
     driver.findElement({css: '[name="stand[1][percent]"]'}).sendKeys('50');
 
     driver.findElement({css: '.js-form-multifield-add[data-name="clause"]'}).click();
     driver.findElement({css: '[name="clause[1][name]"]'}).sendKeys('Дополнительная статья расходов');
     driver.findElement({css: '[name="clause[1][cost]"]'}).sendKeys('9000');
+    driver.findElement({css: '[name="clause[1][percent]"]'}).clear();
     driver.findElement({css: '[name="clause[1][percent]"]'}).sendKeys('50');
 
     driver.findElement({css: '[name="printing"]'}).sendKeys('100000');

@@ -58,6 +58,26 @@ test.describe('Verify', function() {
     driver.wait(until.urlIs('http://192.168.58.235/sign/verify/'), 1000);
   });
 
+  test.it('Confirm verify', function() {
+    driver.get('http://192.168.58.235/sign/verify/');
+    driver.wait(until.elementLocated({css: '.js-form-details'}), 1000);
+
+    driver.executeScript("$('.js-doc-confirm').first().parentsUntil('.actions').parent().css({'max-height': '500px', '-webkit-transform': 'none', '-webkit-transform-origin': 'none'});");
+    driver.sleep(500);
+    driver.findElement({css: '.js-doc-confirm'}).click(); // hidden
+
+    driver.switchTo().alert().then(
+      function() {
+        driver.switchTo().alert().accept();
+        driver.sleep(500);
+      },
+      function() {
+        assert(false === 'Должно быть предупреждение alert');
+      }
+    );
+
+  });
+
 
   test.after(function() {
     driver.quit();

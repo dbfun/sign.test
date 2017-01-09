@@ -62,6 +62,7 @@ test.describe('Hi', function() {
     driver.wait(until.elementLocated({css: '.js-tabs-control .sign-tab-control[data-tab="search"]'}), 500);
 
     driver.findElement({css: '.js-tabs-control .sign-tab-control[data-tab="search"]'}).click();
+    driver.sleep(500);
 
     driver.findElement({css: '.js-sign-search-input'}).sendKeys('ХИ005894');
     driver.findElement({css: '.js-sign-search'}).click();

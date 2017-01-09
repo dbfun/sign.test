@@ -63,6 +63,8 @@ test.describe('Cargo', function() {
 
     driver.findElement({css: '[name="letterAddress"]'}).sendKeys("МО, Ленинский район, Проектируемый проезд № 253, промзона \"ВЗ ГИАП\"");
 
+    // без "перемотки" не работает
+    driver.executeScript("$('html, body').animate({scrollTop: $('.js-signform [type=\"submit\"]').offset().top}, 0);");
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 
     driver.sleep(1000);
@@ -75,6 +77,9 @@ test.describe('Cargo', function() {
       });
 
     driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
+
+    // без "перемотки" не работает
+    driver.executeScript("$('html, body').animate({scrollTop: $('.js-signform [type=\"submit\"]').offset().top}, 0);");
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 
     driver.wait(until.urlIs('http://192.168.58.235/partner/signcargo/'), 1000);
@@ -122,6 +127,8 @@ test.describe('Cargo', function() {
     driver.findElement({css: '[name="phone"]'}).sendKeys("8-903-729-54-29, 8 (495) 961-03-37");
     driver.findElement({css: '[name="email"]'}).sendKeys("kld.region-39@inbox.ru");
 
+    // без "перемотки" не работает
+    driver.executeScript("$('html, body').animate({scrollTop: $('.js-signform [type=\"submit\"]').offset().top}, 0);");
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 
     driver.sleep(1000);
@@ -134,6 +141,9 @@ test.describe('Cargo', function() {
       });
 
     driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
+
+    // без "перемотки" не работает
+    driver.executeScript("$('html, body').animate({scrollTop: $('.js-signform [type=\"submit\"]').offset().top}, 0);");
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 
     driver.wait(until.urlIs('http://192.168.58.235/partner/signcargo/'), 1000);
@@ -173,6 +183,8 @@ test.describe('Cargo', function() {
     driver.findElement({css: '[name="name"]'}).sendKeys("ООО \"Регион " + Math.floor(Math.random() * 1000) + "\"" + " letter ul");
     driver.findElement({css: '[name="letterAddress"]'}).sendKeys("МО, Ленинский район, Проектируемый проезд № 253, промзона \"ВЗ ГИАП\"");
 
+    // без "перемотки" не работает
+    driver.executeScript("$('html, body').animate({scrollTop: $('.js-signform [type=\"submit\"]').offset().top}, 0);");
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 
     driver.sleep(1000);
@@ -185,6 +197,9 @@ test.describe('Cargo', function() {
       });
 
     driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
+
+    // без "перемотки" не работает
+    driver.executeScript("$('html, body').animate({scrollTop: $('.js-signform [type=\"submit\"]').offset().top}, 0);");
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 
     driver.wait(until.urlIs('http://192.168.58.235/partner/signcargo/'), 1000);
@@ -205,6 +220,9 @@ test.describe('Cargo', function() {
     driver.findElement({css: '[name="headInn"]'}).clear();
     driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
 
+    // без "перемотки" не работает
+    driver.executeScript("$('html, body').animate({scrollTop: $('.js-signform [type=\"submit\"]').offset().top}, 0);");
+    driver.sleep(200);
     driver.findElement({css: '.js-signform [type="submit"]'}).click(); // Not working WTF?
     driver.wait(until.urlIs('http://192.168.58.235/partner/signcargo/'), 5000, 'submit');
   });
