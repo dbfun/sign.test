@@ -49,10 +49,10 @@ test.describe('Verify', function() {
         retJSVar.text = $('[name=\"VFile\"]').siblings('.js-signform-alert').text(); \
         return retJSVar;").then(
       function(ret) {
-        assert(ret.text == 'Выберите непустой XLSX файл для загрузки!');
+        assert(ret.text == 'Выберите непустой PDF файл для загрузки!');
       });
 
-    driver.findElement({css: '[name="VFile"]'}).sendKeys(__dirname + '/../files/test.xlsx');
+    driver.findElement({css: '[name="VFile"]'}).sendKeys(__dirname + '/../files/api.pdf');
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 
     driver.wait(until.urlIs('http://192.168.58.235/sign/verify/'), 1000);

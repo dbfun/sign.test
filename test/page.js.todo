@@ -1,0 +1,26 @@
+/**
+ * Usage: mocha -t 10000 test/page
+ */
+
+var webdriver = require('selenium-webdriver'),
+    By = webdriver.By,
+    until = webdriver.until,
+    test = require('selenium-webdriver/testing'),
+    fs = require('fs'),
+    config = require('../config.json'),
+    assert = require('assert'),
+    authbrowser = require('../lib/authbrowser'),
+    data = require('../lib/data');
+
+test.describe('Page', function() {
+
+  test.it('Check', function() {
+    var driver;
+    driver = authbrowser.createDriver('coord');
+    driver.get('http://192.168.58.235/sign/');
+    driver.wait(until.elementLocated({css: '.js-form-details'}), 1000);
+  });
+
+
+
+});

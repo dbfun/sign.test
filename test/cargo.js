@@ -73,7 +73,7 @@ test.describe('Cargo', function() {
         retJSVar.text = $('[name=\"headInn\"]').siblings('.js-signform-alert').text(); \
         return retJSVar;").then(
       function(ret) {
-        assert(ret.text == 'Неправильно указано ИНН. Правильный формат: 10 или 12 цифр. Пример: 1234567890');
+        assert(ret.text == 'Неправильно указан ИНН. Правильный формат: 10 или 12 цифр. Пример: 1234567890');
       });
 
     driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
@@ -137,7 +137,7 @@ test.describe('Cargo', function() {
         retJSVar.text = $('[name=\"headInn\"]').siblings('.js-signform-alert').text(); \
         return retJSVar;").then(
       function(ret) {
-        assert(ret.text == 'Неправильно указано ИНН. Правильный формат: 10 или 12 цифр. Пример: 1234567890');
+        assert(ret.text == 'Неправильно указан ИНН. Правильный формат: 10 или 12 цифр. Пример: 1234567890');
       });
 
     driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
@@ -193,7 +193,7 @@ test.describe('Cargo', function() {
         retJSVar.text = $('[name=\"headInn\"]').siblings('.js-signform-alert').text(); \
         return retJSVar;").then(
       function(ret) {
-        assert(ret.text == 'Неправильно указано ИНН. Правильный формат: 10 или 12 цифр. Пример: 1234567890');
+        assert(ret.text == 'Неправильно указан ИНН. Правильный формат: 10 или 12 цифр. Пример: 1234567890');
       });
 
     driver.findElement({css: '[name="headInn"]'}).sendKeys(7716686249 + Math.floor(Math.random() * 1000000) );
