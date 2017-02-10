@@ -210,6 +210,37 @@ test.describe('Promotion', function() {
     );
   });
 
+  test.it('Sign promotion', function() {
+    var driver;
+    driver = authbrowser.createDriver('partnerPromotion');
+    driver.get('http://192.168.58.235/partner/signpromotion/');
+    driver.wait(until.elementLocated({css: '.js-form-details'}), 1000);
+
+    driver.executeScript("$('.js-doc-sign').first().click();");
+    driver.sleep(500);
+    driver.wait(until.elementLocated({css: '[data-test="sign-doc-thumbnail"]'}), 1000);
+    driver.sleep(500);
+
+
+    driver.executeScript("var retJSVar = {}; \
+        retJSVar.UriThumbnail = $(\"[data-test='sign-doc-thumbnail']\").attr('href'); \
+        retJSVar.UriFile = $(\"[data-test='sign-doc-file']\").attr('href'); \
+        $.ajax({url: retJSVar.UriThumbnail, type: 'GET', cache: false, async: false, \
+          complete: function (XMLHttpRequest, textStatus) {retJSVar.thumbnailCode = XMLHttpRequest.status;} }); \
+        $.ajax({url: retJSVar.UriFile, type: 'GET', cache: false, async: false, \
+          complete: function (XMLHttpRequest, textStatus) {retJSVar.fileCode = XMLHttpRequest.status;} }); \
+        return retJSVar;").then(
+      function(ret) {
+        assert(ret.fileCode == 200);
+        assert(ret.thumbnailCode == 200);
+      });
+
+    driver.findElement({css: '#cboxClose'}).click();
+    driver.sleep(500);
+
+    driver.quit();
+  });
+
   test.after(function() {
     driver.quit();
   });

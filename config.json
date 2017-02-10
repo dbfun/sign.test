@@ -42,11 +42,29 @@
       "uri": "http://192.168.58.235/partner/sign/",
       "title": "Счет-спецификация"
     },
+    "partnerVerify": {
+      "user": "o.lipchanskaya@electroff.ru",
+      "password": "test101test",
+      "uri": "http://192.168.58.235/partner/signverify/",
+      "title": "Акт сверки"
+    },
     "partnerShipment": {
       "user": "o.lipchanskaya@electroff.ru",
       "password": "test101test",
-      "uri": "http://192.168.58.235/partner/sign/",
-      "title": "Счет-спецификация"
+      "uri": "http://192.168.58.235/partner/signshipment/",
+      "title": "Доверенность на отгрузку"
+    },
+    "partnerPromotion": {
+      "user": "o.lipchanskaya@electroff.ru",
+      "password": "test101test",
+      "uri": "http://192.168.58.235/partner/signpromotion/",
+      "title": "План-смета продвижения продукции и бренда"
+    },
+    "partnerNetting": {
+      "user": "o.lipchanskaya@electroff.ru",
+      "password": "test101test",
+      "uri": "http://192.168.58.235/partner/signnetting/",
+      "title": "Уведомление о зачете встречных требований"
     }
   }
 }

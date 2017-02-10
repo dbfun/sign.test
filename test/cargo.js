@@ -271,22 +271,30 @@ test.describe('Cargo', function() {
         assert(ret.thumbnailCode == 200);
       });
 
+  });
 
-    /*driver.takeScreenshot().then(
-      function(image, err) {
-        fs.writeFileSync('var/shot.png', image, 'base64', function(err) {
-            console.log(err);
-        });
+  test.it('Confirm coord cargo', function() {
+    var driver;
+    driver = authbrowser.createDriver('coord');
+    driver.get('http://192.168.58.235/sign/cargo/');
+    driver.wait(until.elementLocated({css: '.js-form-details'}), 1000);
+
+    driver.executeScript("$('.js-doc-confirm').first().parentsUntil('.actions').parent().css({'max-height': '500px', '-webkit-transform': 'none', '-webkit-transform-origin': 'none'});");
+    driver.sleep(500);
+    driver.findElement({css: '.js-doc-confirm'}).click(); // hidden
+
+
+    driver.switchTo().alert().then(
+      function() {
+        driver.switchTo().alert().accept();
+        driver.sleep(500);
+      },
+      function() {
+        assert(false === 'Должно быть предупреждение alert');
       }
-    );*/
+    );
 
-    /*driver.getAllWindowHandles().then(function (handles) {
-        driver.switchTo().window(handles[1]);
-        driver.close();
-        driver.switchTo().window(handles[0]);
-    });
-
-    */
+    driver.quit();
   });
 
 

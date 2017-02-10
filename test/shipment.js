@@ -85,6 +85,57 @@ test.describe('Shipment', function() {
 
   });
 
+  test.it('Sign shipment', function() {
+    driver.get('http://192.168.58.235/partner/signshipment/');
+    driver.wait(until.elementLocated({css: '.js-form-details'}), 1000);
+
+    driver.executeScript("$('.js-doc-sign').first().click();");
+    driver.sleep(500);
+    driver.wait(until.elementLocated({css: '[data-test="sign-doc-thumbnail"]'}), 1000);
+    driver.sleep(500);
+
+
+    driver.executeScript("var retJSVar = {}; \
+        retJSVar.UriThumbnail = $(\"[data-test='sign-doc-thumbnail']\").attr('href'); \
+        retJSVar.UriFile = $(\"[data-test='sign-doc-file']\").attr('href'); \
+        $.ajax({url: retJSVar.UriThumbnail, type: 'GET', cache: false, async: false, \
+          complete: function (XMLHttpRequest, textStatus) {retJSVar.thumbnailCode = XMLHttpRequest.status;} }); \
+        $.ajax({url: retJSVar.UriFile, type: 'GET', cache: false, async: false, \
+          complete: function (XMLHttpRequest, textStatus) {retJSVar.fileCode = XMLHttpRequest.status;} }); \
+        return retJSVar;").then(
+      function(ret) {
+        assert(ret.fileCode == 200);
+        assert(ret.thumbnailCode == 200);
+      });
+
+    driver.findElement({css: '#cboxClose'}).click();
+    driver.sleep(500);
+  });
+
+  test.it('Confirm dpHead shipment', function() {
+    var driver;
+    driver = authbrowser.createDriver('dpHead');
+    driver.get('http://192.168.58.235/sign/shipment/');
+    driver.wait(until.elementLocated({css: '.js-form-details'}), 1000);
+
+    driver.executeScript("$('.js-doc-confirm').first().parentsUntil('.actions').parent().css({'max-height': '500px', '-webkit-transform': 'none', '-webkit-transform-origin': 'none'});");
+    driver.sleep(500);
+    driver.findElement({css: '.js-doc-confirm'}).click(); // hidden
+
+
+    driver.switchTo().alert().then(
+      function() {
+        driver.switchTo().alert().accept();
+        driver.sleep(500);
+      },
+      function() {
+        assert(false === 'Должно быть предупреждение alert');
+      }
+    );
+
+    driver.quit();
+  });
+
 
   test.after(function() {
     driver.quit();

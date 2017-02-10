@@ -1,5 +1,5 @@
 /**
- * Usage: mocha -t 10000 test/verify
+ * Usage: mocha -t 10000 test/netting
  */
 
 var webdriver = require('selenium-webdriver'),
@@ -13,15 +13,15 @@ var webdriver = require('selenium-webdriver'),
 
 require('../lib/date');
 
-test.describe('Verify', function() {
+test.describe('Netting', function() {
   var driver;
 
   test.before(function() {
     driver = authbrowser.createDriver('fd');
   });
 
-  test.it('Create verify', function() {
-    driver.get('http://192.168.58.235/sign/verify/');
+  test.it('Create netting', function() {
+    driver.get('http://192.168.58.235/sign/netting/');
     driver.wait(until.elementLocated({css: '[data-test="create-new"]'}), 500);
     driver.findElement({css: '[data-test="create-new"]'}).click();
 
@@ -33,13 +33,12 @@ test.describe('Verify', function() {
     // driver.findElement({css: '[name="partnerKod"]'}).sendKeys('Электрофф ООО');
     driver.executeScript("$('[name=\"partnerKod\"]').val('7060')");
 
-    var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
-    var randDateStr = randDate.format("dd.mm.yyyy");
-    driver.findElement({css: '[name="verifyDateStart"]'}).sendKeys(randDateStr);
+
+    driver.findElement({css: '[name="docNumber"]'}).sendKeys(Math.floor(Math.random() * 1000) + 1000);
 
     var randDate = new Date(2016, Math.floor(Math.random() * 12 + 1), Math.floor(Math.random() * 28 + 1));
     var randDateStr = randDate.format("dd.mm.yyyy");
-    driver.findElement({css: '[name="verifyDateEnd"]'}).sendKeys(randDateStr);
+    driver.findElement({css: '[name="docDate"]'}).sendKeys(randDateStr);
 
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 
@@ -55,11 +54,11 @@ test.describe('Verify', function() {
     driver.findElement({css: '[name="VFile"]'}).sendKeys(__dirname + '/../files/api.pdf');
     driver.findElement({css: '.js-signform [type="submit"]'}).click();
 
-    driver.wait(until.urlIs('http://192.168.58.235/sign/verify/'), 1000);
+    driver.wait(until.urlIs('http://192.168.58.235/sign/netting/'), 1000);
   });
 
-  test.it('Confirm verify', function() {
-    driver.get('http://192.168.58.235/sign/verify/');
+  test.it('Confirm netting', function() {
+    driver.get('http://192.168.58.235/sign/netting/');
     driver.wait(until.elementLocated({css: '.js-form-details'}), 1000);
 
     driver.executeScript("$('.js-doc-confirm').first().parentsUntil('.actions').parent().css({'max-height': '500px', '-webkit-transform': 'none', '-webkit-transform-origin': 'none'});");
@@ -78,11 +77,10 @@ test.describe('Verify', function() {
 
   });
 
-
-  test.it('Sign verify', function() {
+  test.it('Sign netting', function() {
     var driver;
-    driver = authbrowser.createDriver('partnerVerify');
-    driver.get('http://192.168.58.235/partner/signverify/');
+    driver = authbrowser.createDriver('partnerNetting');
+    driver.get('http://192.168.58.235/partner/signnetting/');
     driver.wait(until.elementLocated({css: '.js-form-details'}), 1000);
 
     driver.executeScript("$('.js-doc-sign').first().click();");
